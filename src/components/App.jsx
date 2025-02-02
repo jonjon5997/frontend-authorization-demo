@@ -8,7 +8,7 @@ import { useState } from "react";
 import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // true or false whether or not the user is logged in
+  const [isLoggedIn, setIsLoggedIn] = useState(true); // true or false whether or not the user is logged in
 
   return (
     <Routes>
