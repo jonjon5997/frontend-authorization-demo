@@ -34,9 +34,6 @@ function NavBar() {
             My Profile
           </NavLink>
         </li>
-        <li>
-          <button className="navbar__link navbar__button">Sign Out</button>
-        </li>
         {/* Add the onClick listener. */}
         <li>
           <button onClick={signOut} className="navbar__link navbar__button">

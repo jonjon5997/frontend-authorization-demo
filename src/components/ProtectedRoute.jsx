@@ -1,5 +1,6 @@
 import { useContext } from "react"; // New import
 import { Navigate, useLocation } from "react-router-dom";
+import AppContext from "../contexts/AppContext";
 
 export default function ProtectedRoute({ children, anonymous = false }) {
   // Invoke the useLocation hook and access the value of the

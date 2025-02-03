@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   Routes,
   Route,
@@ -5,17 +6,17 @@ import {
   useNavigate,
   useLocation,
 } from "react-router-dom";
+
+import AppContext from "../contexts/AppContext";
 import Ducks from "./Ducks";
 import Login from "./Login";
 import MyProfile from "./MyProfile";
 import Register from "./Register";
-import "./styles/App.css";
-import { useState, useEffect } from "react";
 import ProtectedRoute from "./ProtectedRoute";
-import { setToken, getToken } from "../utils/token";
-
 import * as auth from "../utils/auth";
 import * as api from "../utils/api";
+import { setToken, getToken } from "../utils/token";
+import "./styles/App.css";
 
 function App() {
   // New state variable - userData
