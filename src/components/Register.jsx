@@ -21,7 +21,7 @@ const Register = ({ handleRegistration }) => {
 
   const onRegistration = (event) => {
     event.preventDefault();
-    handleRegistration(data);
+    handleRegistration();
   };
 
   return (
@@ -61,7 +61,7 @@ const Register = ({ handleRegistration }) => {
           value={data.confirmPassword}
           onChange={handleChange}
         />
-        <div className="register__button-container">
+        <div className="register__button-container" >
           <button type="submit" className="register__link">
             Sign up
           </button>
