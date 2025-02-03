@@ -96,60 +96,62 @@ function App() {
   }, []);
 
   return (
-    <Routes>
-      <Route
-        path="/ducks"
-        element={
-          <ProtectedRoute isLoggedIn={isLoggedIn}>
-            <Ducks />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/my-profile"
-        element={
-          <ProtectedRoute isLoggedIn={isLoggedIn}>
-            <MyProfile userData={userData} />
-          </ProtectedRoute>
-        }
-      />
-      {/* Wrap our /login route in a ProtectedRoute. Make sure to 
+    <AppContext.Provider value={{ isLoggedIn, setIsLoggedIn }}>
+      <Routes>
+        <Route
+          path="/ducks"
+          element={
+            <ProtectedRoute>
+              <Ducks />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/my-profile"
+          element={
+            <ProtectedRoute>
+              <MyProfile userData={userData} />
+            </ProtectedRoute>
+          }
+        />
+        {/* Wrap our /login route in a ProtectedRoute. Make sure to 
       specify the anoymous prop, to redirect logged-in users 
       to "/". */}
-      <Route
-        path="/login"
-        element={
-          <ProtectedRoute isLoggedIn={isLoggedIn} anonymous>
-            <div className="loginContainer">
-              <Login handleLogin={handleLogin} />
-            </div>
-          </ProtectedRoute>
-        }
-      />
-      {/* Wrap our /register route in a ProtectedRoute. Make sure to
+        <Route
+          path="/login"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn} anonymous>
+              <div className="loginContainer">
+                <Login handleLogin={handleLogin} />
+              </div>
+            </ProtectedRoute>
+          }
+        />
+        {/* Wrap our /register route in a ProtectedRoute. Make sure to
       specify the anoymous prop, to redirect logged-in users 
       to "/". */}
-      <Route
-        path="/register"
-        element={
-          <ProtectedRoute isLoggedIn={isLoggedIn} anonymous>
-            <div className="registerContainer">
-              <Register handleRegistration={handleRegistration} />
-            </div>
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="*"
-        element={
-          isLoggedIn ? (
-            <Navigate to="/ducks" replace />
-          ) : (
-            <Navigate to="/login" replace />
-          )
-        }
-      />
-    </Routes>
+        <Route
+          path="/register"
+          element={
+            <ProtectedRoute isLoggedIn={isLoggedIn} anonymous>
+              <div className="registerContainer">
+                <Register handleRegistration={handleRegistration} />
+              </div>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="*"
+          element={
+            isLoggedIn ? (
+              <Navigate to="/ducks" replace />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+      </Routes>
+    </AppContext.Provider>
   );
 }
 
