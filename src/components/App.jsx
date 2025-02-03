@@ -4,10 +4,12 @@ import Login from "./Login";
 import MyProfile from "./MyProfile";
 import Register from "./Register";
 import "./styles/App.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ProtectedRoute from "./ProtectedRoute";
+import { setToken, getToken } from "../utils/token";
 
 import * as auth from "../utils/auth";
+import * as api from "../utils/api";
 
 function App() {
   // New state variable - userData
@@ -16,6 +18,25 @@ function App() {
 
   // New
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const jwt = getToken();
+
+    if (!jwt) {
+      return;
+    }
+    // Call the function, passing it the JWT.
+    api
+      .getUserInfo(jwt)
+      .then(({ username, email }) => {
+        // If the response is successful, log the user in, save their
+        // data to state, and navigate them to /ducks.
+        setIsLoggedIn(true);
+        setUserData({ username, email });
+        navigate("/ducks");
+      })
+      .catch(console.error);
+  }, []);
 
   const handleRegistration = ({
     username,
@@ -49,6 +70,7 @@ function App() {
       .authorize(username, password)
       .then((data) => {
         if (data.jwt) {
+          setToken(data.jwt);
           setUserData(data.user); // save user's data to state
           setIsLoggedIn(true); // log the user in
           navigate("/ducks"); // send them to /ducks
